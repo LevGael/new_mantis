@@ -1,0 +1,49 @@
+/* _content/newMantis/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-zn4z82amsi] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-zn4z82amsi] {
+  color: #0077cc;
+}
+
+.btn-primary[b-zn4z82amsi] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-zn4z82amsi], .nav-pills .show > .nav-link[b-zn4z82amsi] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-zn4z82amsi] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-zn4z82amsi] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-zn4z82amsi] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-zn4z82amsi] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-zn4z82amsi] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}

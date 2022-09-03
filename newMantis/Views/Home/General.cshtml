@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Général";
+}
+
+<!--Partie Général-->
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h1>General</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+            <!--Partie Projets-->
+            <h5>Sélectionner les projets dont vous voulez les informations : </h5>
+
+            <!--Afficher la liste des projets-->
+            <div id="jstree" style="overflow: scroll;height:360px;width:400px;"></div>
+        </div>
+        <div class="col">
+            <h3>Options : </h3>
+
+            <!--Formulaire-->
+            <p>Indiquez pour quel type d'utilisateur vous voulez recupérer les informations : </p>
+            <p><input type="radio" value="Interne" name="type" id="type" checked> Interne </p>
+            <p><input type="radio" value="Externe" name="type" id="typei"> Externe </p>
+            <p><input type="radio" value="Tout" id="typep" name="type"> Tout </p>
+
+            <p style="margin-top: 50px;">Voulez vous un bilan général des projects ou des informations détaillés ?</p>
+            <input type="radio" value="General" id="complexite" name="complexite" checked> Général 
+            <input type="radio" value="Detail" id="complexitei" name="complexite"> Détaillé
+            <br>
+            <input type="checkbox" value="plage" id="plage" onclick="Plage()" style="margin-top:50px;"> Choisir une plage de dates
+
+            <div id="plagebox" style="display: none;">
+                <p><input type="date" id="datedebut" /> - <input type="date" id="datefin"/></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div style="align-items:center;">
+    <a class="nav-link text-dark" asp-area="" asp-controller="excel" asp-action="DownloadFile">
+        <input type="submit" value="Générer rapport" onclick="BtnClick()" style="margin-left: 45%;"/>
+    </a>
+</div>
+
+
+<!--Partie scripts-->
+
+<script>
+    var selectedProjects = [];
+
+    $(function() {
+        $("#jstree").on("changed.jstree", function(e, data) {
+            selectedProjects = data.selected;
+        }).jstree({
+            "core": {
+                "themes": {
+                    "variant": "large",
+                    "icons": false
+                },
+                "data": @Html.Raw(ViewBag.Json)
+            },
+            "checkbox": {
+                "keep_selected_style": false
+            },
+            "plugins": ["wholerow", "checkbox"],
+        });
+    });
+
+    //Activer ou désactiver la plage de date.
+    function Plage()
+    {
+        if(document.getElementById("plage").checked == true)
+        {
+            document.getElementById("plagebox").style.display = "";
+        } else 
+        {
+            document.getElementById("plagebox").style.display = "none";
+        }
+        function sub(i)
+        {
+            document.getElementById("subproject_"+i).style.display = "";
+        }
+    }    
+
+    //Mettre en mémoire les paramètre sélectionnés ainsi que la liste. Ils seront envoyés (sous ajax) dans l'action "CreateCSVFile" du controller "Excel"
+    function BtnClick() 
+    {
+        var typeclient = new String;
+        var details = new Boolean(false);
+        var debutdate = new Date;
+        var findate = new Date;
+        debutdate = document.getElementById("datedebut").value;
+        findate = document.getElementById("datefin").value;
+
+
+        if(document.getElementById("complexitei").checked == true)
+        {
+            details = true;
+        }
+
+        if(document.getElementById("type").checked == true)
+        {
+            typeclient = "Interne";
+        } else if (document.getElementById("typei").checked == true)
+        {
+            typeclient = "Externe";
+        } else if (document.getElementById("typep").checked == true){
+            typeclient = "Tous";
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/sendToCSV",
+            data: { type_client: typeclient, est_detaille: details, list_projets: selectedProjects, datedeb: debutdate, datefi: findate },
+            error: function (data) {
+                alert(data.status + " - " + data.statusText);
+            },
+        })
+    }
+</script>
+
