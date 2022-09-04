@@ -1,0 +1,92 @@
+﻿@model newMantis.Models.ListeCat
+
+@{
+    ViewData["Title"] = "Admin";
+    List<Categorie> list = new List<Categorie> ();
+    list = Model.AllCategories;
+    var listItem = list.Select(item => new SelectListItem(){ Text = item.libelle, Value = item.idCategorie.ToString()});
+}
+
+<h4>Indiquer le temps de réponse théorique pour chaque cas :</h4>
+@using (Html.BeginForm("Admin", "Home"))
+{
+    <span style="font-weight:bolder; font-size:16px; color:red;">@ViewBag.Message</span>
+    <div>
+        <div class="row">
+            <div class="form-group col-6">
+                <lable for="tmpMin">Temps Mineur (en H) :</lable>
+                @Html.TextBoxFor(m => m.Temps.tempsMineur, new { type = "number", min = "0", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <lable for="tmpMaj">Temps Majeur (en H) :</lable>
+                @Html.TextBoxFor(m => m.Temps.tempsMajeur, new { type = "number", min = "0", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <lable for="tmpCrit">Temps Critique (en H) :</lable>
+                @Html.TextBoxFor(m => m.Temps.tempsCritique, new { type = "number", min = "0", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <lable for="tmpJour">Indiquer le nombre d'heure par jour (exemple : 7.2) :</lable>
+                @Html.TextBoxFor(m => m.Temps.tempsJour, new { type = "number", min = "0", step = "0.1", @class = "form-control"})
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12">
+                <input type="submit" value="Enregistrer" />
+            </div>
+        </div>
+    </div>
+}
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Indiquer les catégories à rechercher : 
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Categorie item in Model.Categories) 
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.libelle)
+                </td>
+                <td>
+                    <a class="nav-link" href="/Home/RemoveCategorie?id=@item.idCategorie">supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br>
+
+<select class="form-select form-select-lg" id="AllCategories" asp-items="listItem">
+    <option disabled selected>Ajouter des catégories :</option>
+</select>
+
+@section scripts {
+    <script>
+        $("#AllCategories").on("change", function () {
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddCategorie",
+                data: JSON.stringify($(this).children("option:selected").val()),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    location.reload(false);
+                }
+            })
+        })
+    </script>
+}

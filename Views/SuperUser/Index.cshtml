@@ -1,0 +1,103 @@
+﻿@model UtilisateurCompteViewModel
+
+@{
+    ViewBag.Title = "Ajouter un utilisateur";
+}
+
+<style type="text/css">
+    .error {
+        color: red;
+    }
+</style>
+
+<!--Formulaire pour ajouter un utilisateur-->
+@using (Html.BeginForm("Index", "SuperUser"))
+{
+    <div class="container">
+        <div class="row">  
+            <span style="font-weight:bolder; font-size:16px; color:red;">@TempData["Error"]</span>
+            <span style="font-weight:bolder; font-size:16px; color:green;">@TempData["Success"]</span>
+            <h2>Ajouter un utilisateur</h2>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="form-group">
+                    <lable for="loginid">Adresse mail du nouvel utilisateur :</lable>
+                    @Html.TextBoxFor(m => m.compte, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.compte, "", new { @class = "error" })
+                </div>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-outline-secondary">Ajouter</button>
+            </div>
+        </div>
+        <div class="row">
+                <div class="form-group">
+                    <lable for="isSuper">Super Utilisateur :</lable>
+                    @Html.CheckBoxFor(m => m.isSuper)
+                </div>
+            </div>
+    </div>
+}
+
+<!--Table pour lister les utilisateurs déjà ajoutés-->
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Prénom
+            </th>
+            <th>
+                Email
+            </th>
+            <th style='text-align:center'>
+                Rôle
+            </th>
+            <th style='text-align:center'>
+                Statut
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listeUtilisateur)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td style='text-align:center; vertical-align:middle'>
+                    @if (item.role == 1)
+                    {
+                        <span style="font-size:24px">
+                            &#11088;
+                        </span>
+                    }
+                </td>
+                <td style='text-align:center; vertical-align:middle'>
+                    @if (item.firstconnexion == 0)
+                    {
+                        <span>&#128308;</span>
+                    }
+                    else
+                    {
+                        <span>&#128994;</span>
+                    }
+                </td>
+                <td>
+                    <a class="nav-link" href="/SuperUser/RemoveUser?email=@item.email">supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+﻿@model NouveauMdp
+
+@{
+    ViewBag.Title = "Modification Mot de passe";
+}
+
+@using (Html.BeginForm("Premiere_connexion", "Connexion"))
+{
+    <h3>  Modification de votre nouveau mot de passe </h3>
+    <span style="font-weight:bolder; font-size:16px; color:red;">@ViewBag.Message</span>
+    <div>
+        <div class="row">
+            <div class="form-group col-6">
+                <lable for="mdpid">Votre ancien mot de passe :</lable>
+                @Html.PasswordFor(m => m.AncienMotdepasse, new { @class = "form-control" })
+            </div>
+            <p> </p>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <lable for="mdpid">Nouveau mot de passe :</lable>
+                @Html.PasswordFor(m => m.NouveauMotdepasse, new { @class = "form-control" })
+            </div>
+        </div>
+                <div class="row">
+            <div class="form-group col-6">
+                <lable for="mdpid">Veuillez remettre le nouveau mot de passe :</lable>
+                @Html.PasswordFor(m => m.RepeatMotdepasse, new { @class = "form-control" })
+            </div>
+        </div>
+                <div class="row">
+            <div class="form-group col-12">
+                <input type="submit" value="Valider" />
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,50 @@
+@model Compte 
+
+@{
+    ViewBag.Title = "Connexion";
+}
+
+<style type="text/css">
+    .error
+    {
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm("Index", "Connexion"))
+{
+    <span style="font-weight:bolder; font-size:16px; color:red;">@ViewBag.Message</span>
+    <div class="container text-center">
+        <div class="row">
+            <h1>Bienvenue sur le site Mantis.net</h1>
+        </div>
+        <div class="row">
+            <p>Pour continuer, veuillez vous connecter</p>
+        </div>
+        <div class="row">
+            <h3>Connexion</h3>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="form-group">
+                    <lable for="loginid">Email :</lable>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "error" })
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="form-group">
+                    <lable for="mdpid">Mot de passe :</lable>
+                    @Html.PasswordFor(m => m.Motdepasse, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <button class="btn btn-success btn-lg" type="submit"> Se connecter </button>
+            </div>
+        </div>
+    </div>
+}

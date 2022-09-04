@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{F0588092-E48E-4C00-A512-6B16867E6B6B}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.newMantis PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Infrastructure/CustomSuperUserFilter.cs">
+    <Files>
+      <File FileName="Infrastructure/CustomSuperUserFilter.proto" Line="23" Column="2" />
+      <File FileName="Controllers/SuperUserController.cs" Line="15" Column="27" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="45" Column="30" />
+      <File FileName="Views/SuperUser/Index.html" Line="2" Column="1" />
+      <File FileName="Controllers/ConnexionController.cs" Line="60" Column="88" />
+      <File FileName="Infrastructure/CustomAuthFilter.cs" Line="23" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="newMantis" expanded="True">
+            <Node name="newMantis" expanded="True">
+              <Node name="Infrastructure" expanded="True">
+                <Node name="CustomSuperUserFilter.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
